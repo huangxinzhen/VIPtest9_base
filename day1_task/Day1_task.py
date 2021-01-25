@@ -26,22 +26,30 @@ Python练习题：
 4）小美的体重是45.0公斤
 
 思路：
-1.定义一个类为Sports，初始化运动类型：跑步、打球...运动一次，体重减少0.5公斤
-2.定义一个类为Love_eat,初始化吃什么东西：炸鸡、烤鸭...每吃一次，体重会增加1公斤
+定义一个类为Person
 """
-class Sports():
-    def __init__(self,name,sportType):
-        """初始化name,sportType,food,weight"""
-        self.name = name
-        self.sportType = sportType
-    def sport(self):
-        print(f'{self.name}爱{self.sportType}')
-class Love_eat():
-    def __init__(self,weight,food):
-        self.weight = weight
-        self.food = food
-    def eat(self):
-        
+# class Person():
+#     def __init__(self,name,sportType,weight):
+#         """初始化name,sportType,food,weight"""
+#         self.name = name
+#         self.sportType = sportType
+#         self.weight = weight
+#     def __str__(self):
+#         return f'{self.name}体重{self.weight}'
+#     def sport(self):
+#         self.weight -= 0.5
+#         print(f'{self.name}爱{self.sportType},跑步体重变成{self.weight}公斤')
+#     def eat(self):
+#         self.weight += 1
+#         print(f'{self.name}爱{self.sportType},跑步体重变成{self.weight}公斤')
+# xiaoming = Person('小明','跑步',75.0)
+# print(xiaoming)
+# xiaoming.sport()
+# xiaoming.eat()
+# xiaoming.eat()
+#
+# xiaomei = Person('小美','炸鸡',45.0)
+# print(xiaomei)
 
 """
 3、摆放家具
@@ -62,4 +70,95 @@ class Love_eat():
 2）.士兵可以开火(士兵开火扣动的是扳机)
 3）.枪 能够 发射子弹(把子弹发射出去)
 4）.枪 能够 装填子弹 --增加子弹的数量
+
+思路：
+    1.定义一个类：Person，初始变量：身份（identity）、枪（gun）
+    2.定义一个类：Gun，定义2个函数，分别为fireBullet（发射子弹）、fillingBullet（填充子弹）
+
+网上百度：  
+    1.由于士兵瑞恩有一把AK47，士兵可以开火。故需要先创建枪类
+    2.枪类（Gun）：
+     （1）属性：型号（model），子弹数目（bullet_count）
+     （2）方法：发射子弹（shoot），装填子弹（add_bullet）
+    3.士兵类（Soldier）
+     （1）属性：姓名（name），枪名（Gun）
+     （2）方法：开火（fire）
 """
+class Gun():
+    """
+    枪类，
+    属性：星号，子弹数目
+    方法：发射子弹，装子弹
+    """
+    def __init__(self,model,bullet_count):
+        """
+        :param model: 型号
+        :param bullet_count: 子弹数目
+        max_bullet_count:最大子弹数目
+        """
+        self.model = model
+        self.bullet_count = bullet_count
+        self.max_bullet_count = 10
+    #射击方法，在还有子弹的情况下，没射击一次子弹减少一个
+    def shoot(self):
+        if self.bullet_count > 0:
+            self.bullet_count -= 1
+        else:
+            print(f'没有子弹了，请先安装子弹。')
+    #添加子弹的方法，在子弹没有装满的情况下，每次添加一个子弹
+    def add_bullet(self):
+        if self.bullet_count < self.max_bullet_count:
+            self.bullet_count += 1
+        else:
+            print('子弹已装满')
+    #添加子弹方法，在子弹没有装满的情况下，每次装满子弹
+    def add_bullet_max(self):
+        if self.bullet_count < self.max_bullet_count:
+            self.bullet_count += (self.max_bullet_count - self.bullet_count)
+class Soldier():
+    """
+    属性：name,gun名
+    方法：开火（fire）
+    """
+    def __init__(self,name,gun_name):
+        self.name = name
+        self.gun_name = gun_name
+    #开火方法，调用gun里面的射击方法
+    def fire(self):
+        self.gun_name.shoot()
+    #装子弹
+    def add_bullets(self):
+        self.gun_name.add_bullet_max()
+gun01 = Gun('AK47',10)
+soldier01 = Soldier('ruien',gun01)
+
+soldier01.fire()
+soldier01.fire()
+print(soldier01.gun_name.bullet_count)
+soldier01.add_bullets()
+print(soldier01.gun_name.bullet_count)
+
+soldier01.fire()
+soldier01.fire()
+print(soldier01.gun_name.bullet_count)
+# gun01.add_bullet()
+# class person():
+#     def __init__(self,identity,gun):
+#         self.identity = identity
+#         self.gun = gun
+#     def __str__(self):
+#         return f'{self.identity}有一把{self.gun}'
+# class Gun(person):
+#     def __init__(self,bullet):
+#         self.bullet = bullet
+#     def fireBullet(self):
+#         self.bullet -= 1
+#         print(f'发射了{self.bullet}颗子弹')
+#     def fillingBullet(self):
+#         print(f'填充了{self.bullet}颗子弹')
+#
+# per = person('士兵','AK47')
+# print(per)
+# gun = Gun(10)
+# gun.fireBullet()
+# gun.fillingBullet()
