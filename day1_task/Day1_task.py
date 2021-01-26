@@ -28,28 +28,28 @@ Python练习题：
 思路：
 定义一个类为Person
 """
-# class Person():
-#     def __init__(self,name,sportType,weight):
-#         """初始化name,sportType,food,weight"""
-#         self.name = name
-#         self.sportType = sportType
-#         self.weight = weight
-#     def __str__(self):
-#         return f'{self.name}体重{self.weight}'
-#     def sport(self):
-#         self.weight -= 0.5
-#         print(f'{self.name}爱{self.sportType},跑步体重变成{self.weight}公斤')
-#     def eat(self):
-#         self.weight += 1
-#         print(f'{self.name}爱{self.sportType},跑步体重变成{self.weight}公斤')
-# xiaoming = Person('小明','跑步',75.0)
-# print(xiaoming)
-# xiaoming.sport()
-# xiaoming.eat()
-# xiaoming.eat()
-#
-# xiaomei = Person('小美','炸鸡',45.0)
-# print(xiaomei)
+class Person():
+    def __init__(self,name,sportType,weight):
+        """初始化name,sportType,food,weight"""
+        self.name = name
+        self.sportType = sportType
+        self.weight = weight
+    def __str__(self):
+        return f'{self.name}体重{self.weight}'
+    def sport(self):
+        self.weight -= 0.5
+        print(f'{self.name}爱{self.sportType},跑步体重变成{self.weight}公斤')
+    def eat(self):
+        self.weight += 1
+        print(f'{self.name}爱{self.sportType},跑步体重变成{self.weight}公斤')
+xiaoming = Person('小明','跑步',75.0)
+print(xiaoming)
+xiaoming.sport()
+xiaoming.eat()
+xiaoming.eat()
+
+xiaomei = Person('小美','炸鸡',45.0)
+print(xiaomei)
 
 """
 3、摆放家具
@@ -62,7 +62,60 @@ Python练习题：
    餐桌：占1.5平米
 3）.将以上三件家具添加到房子中
 4）.打印房子时，要求输出:户型，总面积，剩余面积，家具名称列表
+
+1.定义房子类：Home，初始化参数area、家具列表furniture
+2.定义家具类：Furniture
 """
+class Home():
+    def __init__(self,houseType,area):
+        """
+        :param houseType: 户型
+        :param area: 总面积
+        """
+        self.houseType = houseType
+        self.area = area
+        self.free_area = area
+        self.furniture = []
+    def add_furniture(self,item):
+        """
+        添加家具
+        :param item: 
+        :return: 
+        """
+        if self.free_area >= item.area:
+            self.furniture.append(item.name)
+            self.free_area -= item.area
+        else:
+            print(f'{item.name}太大，装不了啦')
+    def __str__(self):
+        return f'房子的房型是{self.houseType},剩余可用面具{self.free_area},装的家具有{self.furniture}'
+class Furniture():
+    def __init__(self,name,area):
+        """
+        :param name: 家具名称
+        :param area: 占地面积
+        """
+        self.name = name
+        self.area = area
+
+home1 = Home('三室一厅',90)
+print(home1)
+bed = Furniture('床',4)
+home1.add_furniture(bed)
+print(home1)
+
+wardrobe =Furniture('衣柜',2)
+home1.add_furniture(wardrobe)
+print(home1)
+
+table = Furniture('餐桌',1.5)
+home1.add_furniture(table)
+print(home1)
+
+
+sofa = Furniture('沙发',90)
+home1.add_furniture(sofa)
+print(home1)
 """
 4.士兵开枪
 需求：
@@ -115,6 +168,8 @@ class Gun():
     def add_bullet_max(self):
         if self.bullet_count < self.max_bullet_count:
             self.bullet_count += (self.max_bullet_count - self.bullet_count)
+        else:
+            print('子弹已装满！~~')
 class Soldier():
     """
     属性：name,gun名
@@ -131,7 +186,8 @@ class Soldier():
         self.gun_name.add_bullet_max()
 gun01 = Gun('AK47',10)
 soldier01 = Soldier('ruien',gun01)
-
+gun01.add_bullet_max()
+print(gun01.bullet_count)
 soldier01.fire()
 soldier01.fire()
 print(soldier01.gun_name.bullet_count)
@@ -141,6 +197,8 @@ print(soldier01.gun_name.bullet_count)
 soldier01.fire()
 soldier01.fire()
 print(soldier01.gun_name.bullet_count)
+
+
 # gun01.add_bullet()
 # class person():
 #     def __init__(self,identity,gun):
