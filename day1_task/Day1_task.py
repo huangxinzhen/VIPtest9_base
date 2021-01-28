@@ -6,18 +6,18 @@ Python练习题：
 提示：先去分析要定义的类，属性，方法，对象作为一个参数来传递
 1、打印小猫爱吃鱼，小猫要喝水
 """
-# class Cat():
-#     def __init__(self,Like,Need):
-#         self.Like = Like
-#         self.Need = Need
-#     def like(self):
-#         print(f'小猫爱吃{self.Like},小猫需要喝{self.Need}')
-#
-# cat1 = Cat('鱼','水')
-# cat1.like()
-#
-# cat1 = Cat('饭','果汁')
-# cat1.like()
+class Cat():
+    def __init__(self,Like,Need):
+        self.Like = Like
+        self.Need = Need
+    def like(self):
+        print(f'小猫爱吃{self.Like},小猫需要喝{self.Need}')
+
+cat1 = Cat('鱼','水')
+cat1.like()
+
+cat1 = Cat('饭','果汁')
+cat1.like()
 """
 2、小明爱跑步，爱吃东西。
 1）小明体重75.0公斤
